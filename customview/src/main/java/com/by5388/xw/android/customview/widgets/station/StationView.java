@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import com.by5388.xw.android.customview.R;
 
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class StationView extends View implements StationViewApi {
 
+    private static final String TAG = "StationView";
     private Station station;
     private List<Integer> colors;
 
@@ -40,12 +42,12 @@ public class StationView extends View implements StationViewApi {
 
         paintLine = new Paint(paintPlatform);
         paintLine.setColor(colors.get(COLOR_LINE));
-//        paintLine.setStrokeWidth(10);
+        paintLine.setStrokeWidth(4);
 
 
         paintIndependentLine = new Paint(paintPlatform);
         paintIndependentLine.setColor(colors.get(COLOR_INDEPENDENT_LINE));
-//        paintIndependentLine.setStrokeWidth(10);
+        paintIndependentLine.setStrokeWidth(4);
 
         paintText = new Paint(paintPlatform);
         paintText.setColor(Color.RED);
@@ -89,26 +91,30 @@ public class StationView extends View implements StationViewApi {
     }
 
     private void initStationData() {
-//        station = new Station("平湖站", new ArrayList<BaseStationItem>());
-//        station.addStationItem(new StationPlatform())
-//                .addStationItem(new StationLine())
-//                .addStationItem(new StationLine())
-//                .addStationItem(new StationPlatform());
-        station = new Station("饶平站", new ArrayList<BaseStationItem>());
-        station.addStationItem(new StationLine())
-                .addStationItem(new StationPlatform())
-                .addStationItem(new StationLine())
-                .addStationItem(new StationIndependentLine())
-                .addStationItem(new StationIndependentLine())
-                .addStationItem(new StationLine())
-                .addStationItem(new StationPlatform());
-
+        StationDataApi api = new StationData();
+        station = api.getStation("ChaoShan");
 
         colors = new ArrayList<>();
         colors.add(getResources().getColor(R.color.colorAccent));
         colors.add(getResources().getColor(R.color.colorPrimary));
         colors.add(Color.BLUE);
     }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        // TODO: 2018/10/27
+        Log.d(TAG, "onMeasure: " + widthMeasureSpec + " " + heightMeasureSpec);
+
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        // TODO: 2018/10/27
+        Log.d(TAG, "onLayout: " + changed + " " + left + " " + right + " " + bottom);
+    }
+
 
     public StationView(Context context) {
         this(context, null);
