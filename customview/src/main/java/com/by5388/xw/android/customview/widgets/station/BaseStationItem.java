@@ -6,4 +6,5 @@ package com.by5388.xw.android.customview.widgets.station;
 public abstract class BaseStationItem {
      boolean isLine;
      boolean isIndependentLine;
+     
 }
